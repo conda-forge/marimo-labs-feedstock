@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/marimo_labs-{{ version }}.tar.gz
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/marimo_labs-{{ version }}.tar.gz
     sha256: 05f0f2db8f8c984089d4d50d98fbc8c24f6d2df42bafcc5bf38c18124de85033
   # TODO: remove on next release
   - url: https://raw.githubusercontent.com/marimo-team/marimo-labs/main/LICENSE
@@ -15,15 +15,15 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - marimo >=0.3.8
     - huggingface_hub >=0.19.3
     - requests >=2.0
@@ -38,6 +38,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   summary: Cutting-edge experimental features for marimo
